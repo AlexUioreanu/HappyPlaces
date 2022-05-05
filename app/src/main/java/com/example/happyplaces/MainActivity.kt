@@ -1,5 +1,6 @@
 package com.example.happyplaces
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -32,9 +33,9 @@ class MainActivity : AppCompatActivity() {
         // status bar is hidden, so hide that too if necessary.
         actionBar?.hide()
 
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.appBarMain.fab.setOnClickListener {
+            val i = Intent(this,AddEditActivity::class.java)
+            startActivity(i)
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView

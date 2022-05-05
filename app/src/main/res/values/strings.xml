@@ -17,4 +17,26 @@
     <string name="tripPrice">Trip price</string>
     <string name="tripRating">rating</string>
     <string name="favorite_button">Favorites</string>
+    <string name="edit_name">Place Name</string>
+    <string name="edit_destination">Destination</string>
+    <string name="edit_note">Write what you want to remember about this place :D</string>
+    <string name="edit_date">Date</string>
+    <string name="edit_date_sample">12-02-2999</string>
+    <string name="bt_fav_true">Added to favorite</string>
+
+
+    <string-array name="activityType">
+        <item>Party</item>
+        <item>Hiking</item>
+        <item>Sky</item>
+        <item>City Break</item>
+    </string-array>
+
+    <string-array name="placeType">
+        <item>Forrest</item>
+        <item>Sea Side</item>
+        <item>Mountains</item>
+        <item>City</item>
+    </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

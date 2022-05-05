@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".AddEditActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:background="@color/light_gray"
+        android:elevation="20dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/edit_Name"
+                    android:layout_width="360dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="324dp"
+                    android:background="@null"
+                    android:drawableStart="@drawable/ic_outline_map_24"
+                    android:drawablePadding="@dimen/very_small"
+                    android:hint="@string/edit_name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.392"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/edit_imagePlace" />
+
+
+                <ImageView
+                    android:id="@+id/edit_bt_imagePlace"
+                    android:layout_width="371dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/light_gray"
+                    android:clickable="true"
+                    android:src="@drawable/ic_baseline_photo_library_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_imagePlace" />
+
+
+                <EditText
+                    android:id="@+id/edit_destination"
+                    android:layout_width="360dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@null"
+                    android:drawableStart="@drawable/ic_outline_location_on_24"
+                    android:drawablePadding="@dimen/very_small"
+                    android:hint="@string/edit_destination"
+                    android:inputType="text"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.392"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_Name" />
+
+                <androidx.constraintlayout.widget.Guideline
+
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
+
+                <Spinner
+                    android:id="@+id/edit_activityType"
+                    android:layout_width="360dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:entries="@array/activityType"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.392"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_destination" />
+
+                <Spinner
+                    android:id="@+id/edit_placeType"
+                    android:layout_width="360dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:entries="@array/placeType"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.392"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_activityType" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="366dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="24dp"
+                    android:elevation="@dimen/medium"
+                    app:cardCornerRadius="@dimen/medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.444"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_placeType">
+
+                    <EditText
+                        android:id="@+id/edit_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="@string/edit_note"
+                        android:inputType="text"
+                        android:padding="@dimen/very_small"
+                        android:textSize="@dimen/small"
+                        android:textStyle="italic" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/edit_bt_date"
+                    android:layout_width="152dp"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_outline_today_24"
+                    android:drawableTint="@color/white"
+                    android:text="@string/edit_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.077"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                <TextView
+                    android:id="@+id/edit_dateTxT"
+                    android:layout_width="142dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="28dp"
+                    android:text="@string/edit_date_sample"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.035"
+                    app:layout_constraintStart_toEndOf="@+id/edit_bt_date"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                <SeekBar
+                    android:id="@+id/edit_seekBar"
+                    android:layout_width="355dp"
+                    android:layout_height="36dp"
+                    android:max="2"
+                    android:progress="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.357"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_imageMood" />
+
+                <ImageView
+                    android:id="@+id/edit_imageMood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:src="@drawable/ic_sentiment_very_satisfied_fill0_wght400_grad0_opsz48"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_dateTxT"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/edit_imagePlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="@dimen/medium"
+                    android:background="@color/light_gray"
+                    android:src="@drawable/ic_launcher_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/edit_map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="365dp"
+                    android:layout_height="231dp"
+                    android:layout_marginBottom="@dimen/medium"
+                    android:clickable="true"
+                    app:cardCornerRadius="@dimen/medium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_seekBar"
+                    tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+
+                <Button
+                    android:id="@+id/edit_saveBt"
+                    android:layout_width="80dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="@dimen/medium"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/save"
+                    android:drawableTint="@color/white"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_map" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

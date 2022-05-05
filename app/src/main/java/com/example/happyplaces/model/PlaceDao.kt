@@ -21,14 +21,14 @@ interface PlaceDao {
     fun deletePlaceById(placeId: Long)
 
     @Query("UPDATE Place SET isFavorite = 1 WHERE id = :placeId")
-    fun setFavorite(placeId: Long)
+    fun setFavorite(placeId: Int)
 
     @Query("UPDATE Place SET isFavorite = 0 WHERE id = :placeId")
-    fun removeFavorite(placeId: Long)
+    fun removeFavorite(placeId: Int)
 
     @Query("SELECT * FROM Place ORDER BY id ")
     fun getAllPlaces(): List<Place?>?
 
     @Query("SELECT * FROM Place WHERE id = :placeId")
-    fun getPlace(placeId: Long): Place?
+    fun getPlace(placeId: Int): Place?
 }

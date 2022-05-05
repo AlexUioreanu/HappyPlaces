@@ -5,10 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Place::class], version = 1)
+@Database(entities = [Place::class], version = 2, exportSchema = false)
 abstract class PlaceDataBase : RoomDatabase() {
-
-    val DATABASE_NAME = "database"
 
     private val dataBase: PlaceDataBase? = null
 
@@ -26,11 +24,16 @@ abstract class PlaceDataBase : RoomDatabase() {
                     context.applicationContext,
                     PlaceDataBase::class.java,
                     "place_database"
-                ).build()
+                ).allowMainThreadQueries()
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance
             }
         }
+
+        const val DATABASE_NAME = "database"
     }
+
+    abstract fun getTripDao(): PlaceDao
 }
