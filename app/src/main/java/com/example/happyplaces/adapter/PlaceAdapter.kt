@@ -4,9 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happyplaces.AddEditActivity
 import com.example.happyplaces.R
+import com.example.happyplaces.ViewActivity
 import com.example.happyplaces.databinding.ItemPlacesBinding
 import com.example.happyplaces.model.Place
 import com.example.happyplaces.model.PlaceDao
@@ -42,6 +44,7 @@ class PlaceAdapter(var placesList: List<Place>) :
             itemPlaceName.text = currentPlace.name
             itemDestination.text = currentPlace.destination
             itemType.text = currentPlace.placeType
+            Picasso.get().load(currentPlace.image).into(itemImage)
             if(currentPlace.image!="")
                 Picasso.get().load(currentPlace.image).into(itemImage)
 
@@ -59,16 +62,20 @@ class PlaceAdapter(var placesList: List<Place>) :
                 }
             })
 
-            if (currentPlace.overallMood == 0) {
-                itemMood.setImageResource(R.drawable.ic_mood_bad_fill0_wght400_grad0_opsz48)
-            } else if (currentPlace.overallMood == 1) {
-                itemMood.setImageResource(R.drawable.ic_neutral)
-            } else {
-                itemMood.setImageResource(R.drawable.ic_sentiment_very_satisfied_fill0_wght400_grad0_opsz48)
+            when(currentPlace.overallMood){
+                0 ->itemMood.setImageResource(R.drawable.ic_mood_bad_fill0_wght400_grad0_opsz48)
+                1 -> itemMood.setImageResource(R.drawable.ic_neutral)
+                2 -> itemMood.setImageResource(R.drawable.ic_sentiment_very_satisfied_fill0_wght400_grad0_opsz48)
             }
 
-            itemLayout.setOnClickListener(View.OnClickListener {
+            itemLayout.setOnLongClickListener(View.OnLongClickListener {
                 val i = Intent(it.context, AddEditActivity::class.java)
+                i.putExtra(PlaceDataBase.DATABASE_NAME, currentPlace.id)
+                it.context.startActivity(i)
+                true
+            })
+            itemLayout.setOnClickListener(View.OnClickListener {
+                val i = Intent(it.context, ViewActivity::class.java)
                 i.putExtra(PlaceDataBase.DATABASE_NAME, currentPlace.id)
                 it.context.startActivity(i)
             })

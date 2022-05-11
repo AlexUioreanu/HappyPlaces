@@ -12,4 +12,19 @@
     <dimen name="small">12sp</dimen>
     <dimen name="very_small">10sp</dimen>
 
+
+    <dimen name="card_image_height">120dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="favorite_icon_height">32dp</dimen>
+    <dimen name="hr_height">1dp</dimen>
+    <dimen name="icon_height">112dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="welcome_text_size">24sp</dimen>
+    <dimen name="avatar_size">88dp</dimen>
+    <dimen name="hr_size">1dp</dimen>
+    <dimen name="contact_icon_size">24dp</dimen>
+    <dimen name="delete_button_margin">32dp</dimen>
+
 </resources>

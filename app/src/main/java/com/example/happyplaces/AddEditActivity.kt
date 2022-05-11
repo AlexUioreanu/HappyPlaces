@@ -37,6 +37,7 @@ class AddEditActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var extras: Bundle
     private lateinit var editablePlace: Place
     private lateinit var mMap: GoogleMap
+    private var photoURL: String? = null
 
     private var year = 0
     private var month = 0
@@ -63,6 +64,7 @@ class AddEditActivity : AppCompatActivity(), OnMapReadyCallback {
             val id = extras.getInt(PlaceDataBase.DATABASE_NAME)
             editablePlace = dao.getPlace(id)!!
 
+
             binding.editName.setText(editablePlace.name)
             binding.editDestination.setText(editablePlace.destination)
 
@@ -76,15 +78,18 @@ class AddEditActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.editNote.setText(editablePlace.note)
             binding.editDateTxT.setText(editablePlace.dateTime)
 
-            if (editablePlace.overallMood == 0) {
-                binding.editImageMood.setImageResource(R.drawable.ic_mood_bad_fill0_wght400_grad0_opsz48)
-            } else if (editablePlace.overallMood == 1) {
-                binding.editImageMood.setImageResource(R.drawable.ic_neutral)
-            } else {
-                binding.editImageMood.setImageResource(R.drawable.ic_sentiment_very_satisfied_fill0_wght400_grad0_opsz48)
+
+            when(editablePlace.overallMood){
+                0 -> binding.editImageMood.setImageResource(R.drawable.ic_mood_bad_fill0_wght400_grad0_opsz48)
+                1 -> binding.editImageMood.setImageResource(R.drawable.ic_neutral)
+                2 -> binding.editImageMood.setImageResource(R.drawable.ic_sentiment_very_satisfied_fill0_wght400_grad0_opsz48)
             }
 
             binding.editSeekBar.progress = editablePlace.overallMood
+
+                photoURL = editablePlace.image
+            uriGallery = Uri.parse(editablePlace.image)
+
             Picasso.get().load(editablePlace.image).into(binding.editImagePlace)
         }
 
@@ -150,17 +155,36 @@ class AddEditActivity : AppCompatActivity(), OnMapReadyCallback {
             val note = binding.editNote.text.toString()
             val date = binding.editDateTxT.text.toString()
             val mood = binding.editSeekBar.progress
-            val image = binding.editImagePlace.toString()
+            var image = binding.editImagePlace.toString()
+
+            if(photoURL!=null){
+                image= photoURL as String
+            }else {image = uriGallery.toString().trim()
+            }
+            var uri: String = (image)
 
 
-            val place = Place(name, destination, activityType, placeType, note, date, mood, image)
+            val place = Place(
+                name = name,
+                destination = destination,
+                activityType = activityType,
+                placeType = placeType,
+                note = note,
+                dateTime = date,
+                overallMood = mood,
+                image = image
+            )
 
-            place.id = editablePlace.id
-            dao.updatePlace(place)
+
+            if (intent.extras!= null) {
+                place.id = editablePlace.id
+                dao.updatePlace(place)
+            } else {
+                dao.addPlace(place)
+            }
 
             finish()
         })
-
 
 
         val activityType = resources.getStringArray(R.array.activityType)
@@ -183,20 +207,39 @@ class AddEditActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
-        editablePlace = Place(
-            1, "", "", "", "", "", "", false, "", 0, 46.77, 23.62
-        )
+//        editablePlace = Place(
+//            1, "", "", "", "", "", "", false, "", 0, 46.77, 23.62
+//        )
+        if(intent.extras!=null){
+            val place = this.editablePlace.latitude.let {
+                this.editablePlace.longitude.let { it1 ->
+                    LatLng(
+                        it,
+                        it1
+                    )
+                }
+            }
+            place.let {
+                MarkerOptions()
+                    .position(it)
+            }.let {
+                mMap.addMarker(
+                    it
+                )
+            }
+            place.let { CameraUpdateFactory.newLatLngZoom(it, 13f) }.let { mMap.moveCamera(it) }
 
 
-        // Add a marker in Sydney and move the camera
+        }else {
 
-        // Add a marker in Sydney and move the camera
-        val place = LatLng(this.editablePlace.lat, this.editablePlace.long)
-        mMap.addMarker(
-            MarkerOptions()
-                .position(place)
-        )
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 13f))
+            val house = LatLng(46.77, 23.62)
+            mMap.addMarker(
+                MarkerOptions()
+                    .position(house)
+            )
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(house, 15f))
+        }
 
     }
 

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/aclonica</item>
         <item>@font/akaya_telivigala</item>
         <item>@font/aladin</item>
         <item>@font/architects_daughter</item>
         <item>@font/butterfly_kids</item>
         <item>@font/calistoga</item>
         <item>@font/chewy</item>
+        <item>@font/chicle</item>
+        <item>@font/copse</item>
+        <item>@font/covered_by_your_grace</item>
         <item>@font/freckle_face</item>
+        <item>@font/galada</item>
         <item>@font/give_you_glory</item>
         <item>@font/marko_one</item>
         <item>@font/pacifico</item>
         <item>@font/permanent_marker</item>
         <item>@font/rancho</item>
+        <item>@font/schoolbell</item>
     </array>
 </resources>

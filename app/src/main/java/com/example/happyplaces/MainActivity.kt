@@ -1,8 +1,10 @@
 package com.example.happyplaces
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,7 +15,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.happyplaces.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_about, R.id.nav_contact
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -60,5 +61,39 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun share(item: MenuItem?) {
+        intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text))
+        val intent = this.intent.setType("text/plain")
+        val shareIntent = Intent.createChooser(intent, null)
+        startActivity(shareIntent)
+    }
+
+
+    fun openEmailLink(view: View?) {
+        intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(getString(R.string.contact_email))
+        startActivity(intent)
+    }
+
+    fun openTwitterLink(view: View?) {
+        intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(getString(R.string.contact_twitter))
+        startActivity(intent)
+    }
+
+    fun openLinkedInLink(view: View?) {
+        intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(getString(R.string.contact_linkedin))
+        startActivity(intent)
+    }
+
+    fun openGithubLink(view: View?) {
+        intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(getString(R.string.contact_github))
+        startActivity(intent)
     }
 }

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Place::class], version = 1, exportSchema = false)
+@Database(entities = [Place::class], version = 2, exportSchema = false)
 abstract class PlaceDataBase : RoomDatabase() {
 
     private val dataBase: PlaceDataBase? = null
@@ -25,6 +25,7 @@ abstract class PlaceDataBase : RoomDatabase() {
                     PlaceDataBase::class.java,
                     "place_database"
                 ).allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 // return instance
