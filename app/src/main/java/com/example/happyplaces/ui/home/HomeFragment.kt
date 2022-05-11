@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.happyplaces.adapter.PlaceAdapter
 import com.example.happyplaces.databinding.FragmentHomeBinding
 import com.example.happyplaces.model.Place
@@ -20,6 +24,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var dataBase: PlaceDataBase
     lateinit var dao: PlaceDao
+    lateinit var placeAdapter: PlaceAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,11 +41,37 @@ class HomeFragment : Fragment() {
         dataBase = context?.let { PlaceDataBase.getDatabase(it) }!!
         dao = dataBase.getTripDao()
 
+        placeAdapter = PlaceAdapter(dao.getAllPlaces() as List<Place>)
 
+        showData(dao.getAllPlaces() as List<Place>)
         prePopulateData()
 
 
-        showData(dao.getAllPlaces() as List<Place?>)
+//        refreshList()
+
+        ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                dao.deletePlace(placeAdapter.getPlaceAt(viewHolder.adapterPosition))
+                refreshList()
+                Toast.makeText(context, "Trip deleted", Toast.LENGTH_LONG).show()
+            }
+        }).attachToRecyclerView(binding.recyclerView)
+
+
+        binding.swiperLayoutHome.setOnRefreshListener { OnRefreshListener{
+            binding.swiperLayoutHome.isRefreshing = false
+            showData(dao.getAllPlaces() as List<Place>)
+        }  }
 
         return root
     }
@@ -141,11 +172,15 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showData(dao.getAllPlaces() as List<Place>)
     }
 
     private fun showData(houses: List<Place?>) {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerView.adapter = PlaceAdapter(houses as List<Place>)
+        placeAdapter = PlaceAdapter(houses as List<Place>)
+        binding.recyclerView.adapter = placeAdapter
+    }
+    private fun refreshList() {
+        placeAdapter = PlaceAdapter(dao.getAllPlaces() as List<Place>)
+        binding.recyclerView.adapter = placeAdapter
     }
 }

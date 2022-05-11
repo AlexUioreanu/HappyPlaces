@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happyplaces.AddEditActivity
 import com.example.happyplaces.R
@@ -48,15 +47,15 @@ class PlaceAdapter(var placesList: List<Place>) :
             if(currentPlace.image!="")
                 Picasso.get().load(currentPlace.image).into(itemImage)
 
-//            if (currentPlace.isFavorite) {
-//                editBtFavorite.setImageResource(R.drawable.ic_baseline_whatshot_24)
-//            }
+            if (currentPlace.isFavorite) {
+                editBtFavorite.setImageResource(R.drawable.ic_baseline_whatshot_24)
+            }else{editBtFavorite.setImageResource(R.drawable.ic_whatshot_light)}
             editBtFavorite.setOnClickListener(View.OnClickListener { it ->
                 if (!currentPlace.isFavorite) {
                     dao.setFavorite(currentPlace.id)
                     editBtFavorite.setImageResource(R.drawable.ic_baseline_whatshot_24)
 
-                } else if (currentPlace.isFavorite) {
+                } else   {
                     dao.removeFavorite(currentPlace.id)
                     editBtFavorite.setImageResource(R.drawable.ic_whatshot_light)
                 }
@@ -80,6 +79,10 @@ class PlaceAdapter(var placesList: List<Place>) :
                 it.context.startActivity(i)
             })
         }
+    }
+
+    fun getPlaceAt(position: Int): Place {
+        return placesList[position]
     }
 
     override fun getItemCount(): Int {
