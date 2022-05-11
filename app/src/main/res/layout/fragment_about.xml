@@ -72,7 +72,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="244dp"
+            android:layout_height="276dp"
             android:layout_gravity="bottom|center_vertical"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
